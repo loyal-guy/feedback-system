@@ -1,18 +1,8 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")/.." || exit 1
-if ! command -v apt-get >/dev/null; then
-  echo "PROBLEM: this Codespace is in recovery mode. Run: Codespaces: Rebuild Container"; exit 1
-fi
-PHP=php
-if ! command -v php >/dev/null || ! php -m | grep -qi pdo_mysql || ! php -m | grep -qi mbstring; then
-  echo "Installing PHP (first time only)..."
-  sudo apt-get update -qq
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq php-cli php-mysql php-curl php-mbstring >/dev/null
-  PHP=/usr/bin/php
-fi
 if ! command -v mysql >/dev/null; then
   echo "Installing MariaDB (first time only, about 1-2 minutes)..."
-  sudo apt-get update -qq
+  sudo apt-get update -qq 2>/dev/null
   sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq mariadb-server mariadb-client >/dev/null
 fi
 echo "Starting the database..."
@@ -35,12 +25,33 @@ cp .env.example .env
 sed -i 's/^APP_ENV=.*/APP_ENV=development/; s/^DB_HOST=.*/DB_HOST=127.0.0.1/; s/^DB_USER=.*/DB_USER=feedback_user/; s/^DB_PASS=.*/DB_PASS=devpass/' .env
 mkdir -p storage/logs storage/backups
 pkill -f "S 0.0.0.0:8000" 2>/dev/null || true
-setsid nohup "$PHP" -S 0.0.0.0:8000 deploy/router.php > storage/logs/server.log 2>&1 &
-sleep 2
+docker rm -f fb-web >/dev/null 2>&1 || true
+PHP=""
+for c in /usr/local/php/current/bin/php "$(command -v php)"; do
+  [ -n "$c" ] && [ -x "$c" ] || continue
+  if "$c" -r 'exit(PHP_VERSION_ID >= 80100 && extension_loaded("pdo_mysql") && extension_loaded("mbstring") ? 0 : 1);' 2>/dev/null; then
+    PHP="$c"; break
+  fi
+done
+if [ -n "$PHP" ]; then
+  setsid nohup "$PHP" -S 0.0.0.0:8000 deploy/router.php > storage/logs/server.log 2>&1 &
+  RUN="$PHP"
+else
+  if ! docker image inspect fbphp >/dev/null 2>&1; then
+    echo "Preparing PHP 8.3 (first time only, about 1-2 minutes)..."
+    printf 'FROM php:8.3-cli\nRUN docker-php-ext-install pdo_mysql\n' | docker build -q -t fbphp - >/dev/null \
+      || { echo "PROBLEM: could not prepare PHP 8.3. Send a photo of this."; exit 1; }
+  fi
+  docker run -d --name fb-web --network host --user "$(id -u):$(id -g)" \
+    -v "$PWD":/app -w /app fbphp php -S 0.0.0.0:8000 deploy/router.php >/dev/null
+  RUN="docker exec fb-web php"
+fi
+sleep 3
 CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/)
 if [ "$CODE" = "200" ]; then
   echo "SUCCESS: FeedbackHub is running on port 8000. Open the PORTS tab and click the globe next to 8000."
-  echo "To run the tests: $PHP tests/run_tests.php http://localhost:8000"
+  echo "To run the tests: $RUN tests/run_tests.php http://localhost:8000"
 else
-  echo "PROBLEM: website answered HTTP $CODE. Send a photo of this:"; tail -5 storage/logs/server.log; tail -3 storage/logs/app.log 2>/dev/null
+  echo "PROBLEM: website answered HTTP $CODE. Send a photo of this:"
+  tail -5 storage/logs/server.log 2>/dev/null; docker logs --tail 5 fb-web 2>/dev/null; tail -3 storage/logs/app.log 2>/dev/null
 fi
