@@ -1,0 +1,424 @@
+{
+    "run_at": "2026-11-19 10:02:02",
+    "target": "http://127.0.0.1:8081/feedback-system",
+    "total": 51,
+    "passed": 51,
+    "failed": 0,
+    "php": "8.3.6",
+    "performance_ms": {
+        "Home page": 1.2,
+        "My feedback list": 1.8,
+        "Admin dashboard": 3,
+        "Admin feedback search": 2
+    },
+    "tests": [
+        {
+            "id": "D1",
+            "category": "Database",
+            "name": "Database connection",
+            "expected": "PDO connects using .env settings",
+            "actual": "Connected to feedback_system",
+            "pass": true
+        },
+        {
+            "id": "D2",
+            "category": "Database",
+            "name": "All required tables exist",
+            "expected": "6 tables: users, categories, feedback, replies, login_attempts, activity_logs",
+            "actual": "All 6 tables found",
+            "pass": true
+        },
+        {
+            "id": "D3",
+            "category": "Database",
+            "name": "Unique email constraint",
+            "expected": "Inserting a duplicate email is rejected by the database",
+            "actual": "Rejected (SQLSTATE 23000)",
+            "pass": true
+        },
+        {
+            "id": "D4",
+            "category": "Database",
+            "name": "Foreign key constraint",
+            "expected": "Feedback for a non-existent user is rejected",
+            "actual": "Rejected (SQLSTATE 23000)",
+            "pass": true
+        },
+        {
+            "id": "D5",
+            "category": "Database",
+            "name": "Rating CHECK constraint",
+            "expected": "A rating of 9 is rejected by the database",
+            "actual": "Rejected (SQLSTATE 23000)",
+            "pass": true
+        },
+        {
+            "id": "D6",
+            "category": "Database",
+            "name": "Transaction rollback",
+            "expected": "Changes inside a rolled-back transaction are not saved",
+            "actual": "Rows before: 6, after rollback: 6",
+            "pass": true
+        },
+        {
+            "id": "L1",
+            "category": "Login/Registration",
+            "name": "Register with valid details",
+            "expected": "Account created, redirected to login with success message",
+            "actual": "Redirected to login, success message shown",
+            "pass": true
+        },
+        {
+            "id": "L2",
+            "category": "Login/Registration",
+            "name": "Register with an existing email",
+            "expected": "\"An account with this email already exists\"",
+            "actual": "Duplicate email error displayed",
+            "pass": true
+        },
+        {
+            "id": "L3",
+            "category": "Login/Registration",
+            "name": "Valid login",
+            "expected": "User is taken to the dashboard",
+            "actual": "Dashboard displayed with user name",
+            "pass": true
+        },
+        {
+            "id": "L4",
+            "category": "Login/Registration",
+            "name": "Login with wrong password",
+            "expected": "\"Invalid email or password\" shown, no login",
+            "actual": "Error message displayed, stayed on login page",
+            "pass": true
+        },
+        {
+            "id": "L5",
+            "category": "Login/Registration",
+            "name": "Login with unregistered email",
+            "expected": "Same generic error as wrong password (no account enumeration)",
+            "actual": "Generic \"Invalid email or password\" displayed",
+            "pass": true
+        },
+        {
+            "id": "L6",
+            "category": "Login/Registration",
+            "name": "Admin login",
+            "expected": "Admin is taken to the admin dashboard",
+            "actual": "Admin dashboard displayed",
+            "pass": true
+        },
+        {
+            "id": "L7",
+            "category": "Login/Registration",
+            "name": "Logout",
+            "expected": "Session ends; dashboard then redirects to login",
+            "actual": "After logout, dashboard redirects to login.php",
+            "pass": true
+        },
+        {
+            "id": "V1",
+            "category": "Form validation",
+            "name": "Empty registration fields",
+            "expected": "Required-field messages displayed",
+            "actual": "Messages shown for name, email and password",
+            "pass": true
+        },
+        {
+            "id": "V2",
+            "category": "Form validation",
+            "name": "Invalid email format",
+            "expected": "\"Enter a valid email address\"",
+            "actual": "Email format error displayed",
+            "pass": true
+        },
+        {
+            "id": "V3",
+            "category": "Form validation",
+            "name": "Weak password",
+            "expected": "Password rule message; account not created",
+            "actual": "Strong-password rule message displayed",
+            "pass": true
+        },
+        {
+            "id": "V4",
+            "category": "Form validation",
+            "name": "Passwords do not match",
+            "expected": "\"Passwords do not match\"",
+            "actual": "Mismatch message displayed",
+            "pass": true
+        },
+        {
+            "id": "V5",
+            "category": "Form validation",
+            "name": "Invalid name and phone",
+            "expected": "Name and phone format errors",
+            "actual": "Both format errors displayed",
+            "pass": true
+        },
+        {
+            "id": "V6",
+            "category": "Form validation",
+            "name": "Feedback rating outside 1-5",
+            "expected": "Rating error; nothing saved",
+            "actual": "Rejected with rating error",
+            "pass": true
+        },
+        {
+            "id": "V7",
+            "category": "Form validation",
+            "name": "Feedback with tampered category id",
+            "expected": "Category error; nothing saved",
+            "actual": "Invalid category rejected",
+            "pass": true
+        },
+        {
+            "id": "V8",
+            "category": "Form validation",
+            "name": "Feedback message too short",
+            "expected": "Length error shown",
+            "actual": "Length error displayed",
+            "pass": true
+        },
+        {
+            "id": "F1",
+            "category": "Functional",
+            "name": "Home page loads",
+            "expected": "HTTP 200 with statistics",
+            "actual": "HTTP 200, statistics shown",
+            "pass": true
+        },
+        {
+            "id": "F2",
+            "category": "Functional",
+            "name": "Submit valid feedback",
+            "expected": "Saved and the detail page is shown",
+            "actual": "Feedback saved with status Pending",
+            "pass": true
+        },
+        {
+            "id": "F3",
+            "category": "Functional",
+            "name": "Feedback appears in \"My feedback\"",
+            "expected": "New feedback listed",
+            "actual": "Listed in the table",
+            "pass": true
+        },
+        {
+            "id": "F4",
+            "category": "Functional",
+            "name": "Search and filter",
+            "expected": "Matching item shown; non-matching hidden",
+            "actual": "Keyword search correct; rating filter correct",
+            "pass": true
+        },
+        {
+            "id": "F5",
+            "category": "Functional",
+            "name": "Admin replies and resolves feedback",
+            "expected": "Customer sees the reply and status \"Resolved\"",
+            "actual": "Reply visible to customer, status Resolved",
+            "pass": true
+        },
+        {
+            "id": "F6",
+            "category": "Functional",
+            "name": "Update profile",
+            "expected": "New name saved and shown",
+            "actual": "Profile updated message and new name shown",
+            "pass": true
+        },
+        {
+            "id": "F7",
+            "category": "Functional",
+            "name": "Change password",
+            "expected": "Old password stops working, new one works",
+            "actual": "Changed; login with new password works",
+            "pass": true
+        },
+        {
+            "id": "F8",
+            "category": "Functional",
+            "name": "Admin dashboard, charts and CSV export",
+            "expected": "Dashboard renders charts; export returns a CSV file",
+            "actual": "4 charts rendered; CSV downloaded",
+            "pass": true
+        },
+        {
+            "id": "S1",
+            "category": "Security",
+            "name": "SQL injection in login form",
+            "expected": "Input  ' OR '1'='1' --  does not log in",
+            "actual": "Login refused; treated as a normal (wrong) email",
+            "pass": true
+        },
+        {
+            "id": "S2",
+            "category": "Security",
+            "name": "SQL injection in search box",
+            "expected": "No database error; payload treated as text",
+            "actual": "HTTP 200, no hashes or SQL errors leaked, zero results",
+            "pass": true
+        },
+        {
+            "id": "S3",
+            "category": "Security",
+            "name": "Stored XSS in feedback",
+            "expected": "<script> saved but displayed as harmless text",
+            "actual": "Output escaped as &lt;script&gt; - script does not run",
+            "pass": true
+        },
+        {
+            "id": "S4",
+            "category": "Security",
+            "name": "Reflected XSS in search parameter",
+            "expected": "Search term escaped in the page",
+            "actual": "Escaped in the search box value",
+            "pass": true
+        },
+        {
+            "id": "S5",
+            "category": "Security",
+            "name": "CSRF: form submitted without token",
+            "expected": "Request rejected with HTTP 403",
+            "actual": "HTTP 403",
+            "pass": true
+        },
+        {
+            "id": "S6",
+            "category": "Security",
+            "name": "CSRF: forged token",
+            "expected": "Request rejected with HTTP 403",
+            "actual": "HTTP 403",
+            "pass": true
+        },
+        {
+            "id": "S7",
+            "category": "Security",
+            "name": "Unauthorised admin page (logged in as user)",
+            "expected": "Access denied (HTTP 403)",
+            "actual": "HTTP 403, 403, 403, 403 for 4 admin pages",
+            "pass": true
+        },
+        {
+            "id": "S8",
+            "category": "Security",
+            "name": "Protected page without login",
+            "expected": "Redirected to login page",
+            "actual": "Both redirected to login.php",
+            "pass": true
+        },
+        {
+            "id": "S9",
+            "category": "Security",
+            "name": "IDOR: opening another user's feedback",
+            "expected": "Access denied (HTTP 403)",
+            "actual": "User B got HTTP 403 for User A's feedback #15",
+            "pass": true
+        },
+        {
+            "id": "S10",
+            "category": "Security",
+            "name": "Passwords stored as hashes",
+            "expected": "Database holds a bcrypt hash, not the password",
+            "actual": "Stored: $2y$10$CfLqJqb9OMy9q… (bcrypt)",
+            "pass": true
+        },
+        {
+            "id": "S11",
+            "category": "Security",
+            "name": "Role cannot be chosen at registration",
+            "expected": "Extra field role=admin is ignored; account is \"user\"",
+            "actual": "Account created with role: user",
+            "pass": true
+        },
+        {
+            "id": "S12",
+            "category": "Security",
+            "name": "Security headers sent",
+            "expected": "CSP, X-Frame-Options, nosniff, Referrer-Policy present; no X-Powered-By",
+            "actual": "All headers present, PHP version hidden",
+            "pass": true
+        },
+        {
+            "id": "S13",
+            "category": "Security",
+            "name": "Session cookie flags",
+            "expected": "Cookie is HttpOnly and SameSite=Lax",
+            "actual": "HttpOnly; SameSite=Lax",
+            "pass": true
+        },
+        {
+            "id": "S14",
+            "category": "Security",
+            "name": "Session fixation prevented",
+            "expected": "Session ID changes after login",
+            "actual": "ID before and after login are different",
+            "pass": true
+        },
+        {
+            "id": "S15",
+            "category": "Security",
+            "name": "Sensitive files blocked from the web",
+            "expected": ".env, database/schema.sql and logs return 403/404",
+            "actual": "Responses: 403, 403, 403, 403, 403",
+            "pass": true
+        },
+        {
+            "id": "S16",
+            "category": "Security",
+            "name": "Deactivated account cannot log in",
+            "expected": "Login refused with \"deactivated\" message",
+            "actual": "Login refused, message displayed",
+            "pass": true
+        },
+        {
+            "id": "S17",
+            "category": "Security",
+            "name": "Brute-force lockout",
+            "expected": "After 5 wrong passwords even the correct one is blocked",
+            "actual": "Blocked after 5 failures",
+            "pass": true
+        },
+        {
+            "id": "S18",
+            "category": "Security",
+            "name": "Security events are logged",
+            "expected": "Failed logins and denied access appear in activity_logs",
+            "actual": "4 of 4 security event types recorded in the last 10 minutes",
+            "pass": true
+        },
+        {
+            "id": "E1",
+            "category": "Error handling",
+            "name": "Feedback that does not exist",
+            "expected": "Friendly 404 page",
+            "actual": "HTTP 404, friendly page shown",
+            "pass": true
+        },
+        {
+            "id": "E2",
+            "category": "Error handling",
+            "name": "Invalid id value (text instead of number)",
+            "expected": "Friendly 404 page, no PHP error",
+            "actual": "HTTP 404, no PHP errors",
+            "pass": true
+        },
+        {
+            "id": "E3",
+            "category": "Error handling",
+            "name": "Array injection in parameters",
+            "expected": "Handled without PHP errors",
+            "actual": "HTTP 200, input safely ignored",
+            "pass": true
+        },
+        {
+            "id": "E4",
+            "category": "Error handling",
+            "name": "Delete resolved feedback (business rule)",
+            "expected": "\"Only pending feedback can be deleted\"",
+            "actual": "Rule enforced, message shown",
+            "pass": true
+        }
+    ]
+}

@@ -1,0 +1,41 @@
+# =============================================================
+# FeedbackHub - Apache configuration (works on XAMPP and cPanel hosting)
+# =============================================================
+
+Options -Indexes
+DirectoryIndex index.php
+ServerSignature Off
+
+# Friendly error pages
+ErrorDocument 403 /feedback-system/errors/403.php
+ErrorDocument 404 /feedback-system/errors/404.php
+# ^ If the app is at the web root of a live domain, change these to /errors/403.php and /errors/404.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block private folders: configuration, code includes, database dumps, logs, tests, deployment files
+    RewriteRule ^(config|includes|database|storage|tests|deploy|docs)(/|$) - [R=404,L]
+
+    # Force HTTPS on the live server (uncomment once an SSL certificate is installed)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Block hidden files (.env, .git, .htaccess) and sensitive file types
+<FilesMatch "(^\.|\.(sql|md|log|sh|json|example|bak)$)">
+    Require all denied
+</FilesMatch>
+
+# Hide PHP version and harden PHP (Apache module only; ignored elsewhere)
+<IfModule mod_php.c>
+    php_flag expose_php Off
+    php_flag session.cookie_httponly On
+</IfModule>
+
+# Cache static files for faster loading
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 7 days"
+    ExpiresByType application/javascript "access plus 7 days"
+</IfModule>

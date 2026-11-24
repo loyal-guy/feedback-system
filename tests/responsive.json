@@ -1,0 +1,176 @@
+{
+  "run_at": "2026-11-19 10:02:22",
+  "target": "http://127.0.0.1:8081/feedback-system",
+  "results": [
+    {
+      "device": "Phone (375x812)",
+      "page": "Home",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "index_375.png"
+    },
+    {
+      "device": "Phone (375x812)",
+      "page": "Login",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "login_375.png"
+    },
+    {
+      "device": "Phone (375x812)",
+      "page": "Register",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "register_375.png"
+    },
+    {
+      "device": "Phone (375x812)",
+      "page": "Give feedback",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "feedback_new_375.png"
+    },
+    {
+      "device": "Phone (375x812)",
+      "page": "My feedback",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "my_feedback_375.png"
+    },
+    {
+      "device": "Phone (375x812)",
+      "page": "Profile",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "profile_375.png"
+    },
+    {
+      "device": "Phone (375x812)",
+      "page": "Admin dashboard",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "admin_index_375.png"
+    },
+    {
+      "device": "Phone (375x812)",
+      "page": "All feedback",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "admin_feedback_375.png"
+    },
+    {
+      "device": "Tablet (768x1024)",
+      "page": "Home",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "index_768.png"
+    },
+    {
+      "device": "Tablet (768x1024)",
+      "page": "Login",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "login_768.png"
+    },
+    {
+      "device": "Tablet (768x1024)",
+      "page": "Register",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "register_768.png"
+    },
+    {
+      "device": "Tablet (768x1024)",
+      "page": "Give feedback",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "feedback_new_768.png"
+    },
+    {
+      "device": "Tablet (768x1024)",
+      "page": "My feedback",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "my_feedback_768.png"
+    },
+    {
+      "device": "Tablet (768x1024)",
+      "page": "Profile",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "profile_768.png"
+    },
+    {
+      "device": "Tablet (768x1024)",
+      "page": "Admin dashboard",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "admin_index_768.png"
+    },
+    {
+      "device": "Tablet (768x1024)",
+      "page": "All feedback",
+      "pass": true,
+      "actual": "no horizontal scroll, menu button shown, menu opens",
+      "screenshot": "admin_feedback_768.png"
+    },
+    {
+      "device": "Laptop (1366x768)",
+      "page": "Home",
+      "pass": true,
+      "actual": "no horizontal scroll, full menu shown",
+      "screenshot": "index_1366.png"
+    },
+    {
+      "device": "Laptop (1366x768)",
+      "page": "Login",
+      "pass": true,
+      "actual": "no horizontal scroll, full menu shown",
+      "screenshot": "login_1366.png"
+    },
+    {
+      "device": "Laptop (1366x768)",
+      "page": "Register",
+      "pass": true,
+      "actual": "no horizontal scroll, full menu shown",
+      "screenshot": "register_1366.png"
+    },
+    {
+      "device": "Laptop (1366x768)",
+      "page": "Give feedback",
+      "pass": true,
+      "actual": "no horizontal scroll, full menu shown",
+      "screenshot": "feedback_new_1366.png"
+    },
+    {
+      "device": "Laptop (1366x768)",
+      "page": "My feedback",
+      "pass": true,
+      "actual": "no horizontal scroll, full menu shown",
+      "screenshot": "my_feedback_1366.png"
+    },
+    {
+      "device": "Laptop (1366x768)",
+      "page": "Profile",
+      "pass": true,
+      "actual": "no horizontal scroll, full menu shown",
+      "screenshot": "profile_1366.png"
+    },
+    {
+      "device": "Laptop (1366x768)",
+      "page": "Admin dashboard",
+      "pass": true,
+      "actual": "no horizontal scroll, full menu shown",
+      "screenshot": "admin_index_1366.png"
+    },
+    {
+      "device": "Laptop (1366x768)",
+      "page": "All feedback",
+      "pass": true,
+      "actual": "no horizontal scroll, full menu shown",
+      "screenshot": "admin_feedback_1366.png"
+    }
+  ],
+  "passed": 24,
+  "total": 24
+}

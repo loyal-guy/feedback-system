@@ -1,0 +1,12 @@
+{
+  "_instructions": "Ask 3-5 people (classmates, family) to do each task without help. Time them and write what happened in 'actual', then set 'status' to Pass or Fail. The Testing page shows this file.",
+  "tests": [
+    {"id": "U1", "task": "Create an account without help", "expected": "Done in under 2 minutes; password rules understood from the hint and strength bar", "actual": "", "status": "Not yet run"},
+    {"id": "U2", "task": "Submit feedback with a 4-star rating", "expected": "User finds 'Give feedback' in the menu and submits in under 1 minute", "actual": "", "status": "Not yet run"},
+    {"id": "U3", "task": "Find out whether the support team has replied", "expected": "User opens 'My feedback', sees the status badge and opens the reply", "actual": "", "status": "Not yet run"},
+    {"id": "U4", "task": "Find all feedback with a 1-star rating (admin)", "expected": "Admin uses the filters on 'All feedback' without help", "actual": "", "status": "Not yet run"},
+    {"id": "U5", "task": "Reply to a complaint and mark it resolved (admin)", "expected": "Reply sent and status changed in one step", "actual": "", "status": "Not yet run"},
+    {"id": "U6", "task": "Use the site on a phone", "expected": "User can open the menu, read tables and fill forms without zooming", "actual": "", "status": "Not yet run"},
+    {"id": "U7", "task": "Understand an error message (e.g. weak password)", "expected": "User understands what to fix from the message next to the field", "actual": "", "status": "Not yet run"}
+  ]
+}
